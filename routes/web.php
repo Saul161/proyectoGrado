@@ -39,6 +39,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('users',UsersControllers::Class);
 
     Route::get('/genera_ordenes',[GeneraOrdenesController::Class,'index'])->name('genera_ordenes.index');   
+    Route::post('/generarOrdenes',[GeneraOrdenesController::Class,'generarOrdenes'])->name('generarOrdenes');   
      
 
 
