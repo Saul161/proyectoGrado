@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\GeneraOrdenes;
 use DB;
 
 
@@ -99,13 +100,36 @@ class GeneraOrdenesController extends Controller
     $mes=$datos['mes'];
 
     $estudiantes=DB::select("SELECT * FROM matriculas m
-    JOIN estudianteS e ON m.est_id=e.id
+    JOIN estudiantes e ON m.est_id=e.id
     WHERE m.anl_id=$anl_id
     AND m.mat_estado=1
     AND m.jor_id=$jor_id
     ");
-    dd($estudiantes);
+    // dd($estudiantes);
+
+    foreach($estudiantes as $e){
+
+
+
+     $input[ 'mat_id']='';
+     $input['codigo']='';
+     $input['fecha_pago']='';
+     $input['valor_pagado']='';
+    $input['estado']='';
+    $input['mes']='';
+    $input['responsable']='';
+    $input['secuencial']='';
+    $input['documento']='';
+                
+            }
+              
+
 }
+
+        
+        
+
+
 
 
 }
