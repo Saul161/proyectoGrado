@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\GeneraOrdenes;
 use DB;
+use Auth;
 
 
 class GeneraOrdenesController extends Controller
@@ -76,7 +77,7 @@ class GeneraOrdenesController extends Controller
     }
 
     public function meses(){
-        return[
+        $meses=[
 
             '1'=>'Enero',
             '2'=>'Febrero',
@@ -91,6 +92,25 @@ class GeneraOrdenesController extends Controller
             '11'=>'Nombre',
             '12'=>'Diciembre',
         ];
+        return $meses;
+
+        public function mesesLetra($nmes){
+            $result="";
+            switch($nmes){
+                case 1: $result="E";break;
+                case 2: $result="E";break;
+                case 3: $result="E";break;
+                case 4: $result="E";break;
+                case 5: $result="E";break;
+                case 6: $result="E";break;
+                case 7: $result="E";break;
+                case 8: $result="E";break;
+                case 9: $result="E";break;
+                case 10: $result="E";break;
+                case 11: $result="E";break;
+                case 12: $result="E";break;
+            }
+        }
     }
     public function generarOrdenes(Request $rq){
     // dd('gerar orden');
@@ -99,26 +119,29 @@ class GeneraOrdenesController extends Controller
     $jor_id=$datos['jor_id'];
     $mes=$datos['mes'];
 
-    $estudiantes=DB::select("SELECT * FROM matriculas m
+    $estudiantes=DB::select("SELECT *,m.id=mat_id FROM matriculas m
     JOIN estudiantes e ON m.est_id=e.id
     WHERE m.anl_id=$anl_id
     AND m.mat_estado=1
     AND m.jor_id=$jor_id
     ");
     // dd($estudiantes);
-
+    $valor_pagar=75;
+    dd(Auth::User()->name);
     foreach($estudiantes as $e){
 
+    dd($e->mat_id);
 
-
-     $input[ 'mat_id']='';
-     $input['codigo']='';
-     $input['fecha_pago']='';
-     $input['valor_pagado']='';
-    $input['estado']='';
-    $input['mes']='';
-    $input['responsable']='';
-    $input['secuencial']='';
+     $input[ 'mat_id']='';   //
+     $input['codigo']='';    ///MGM3IF-1523
+     $input['fecha_pago']=date ('y-m-d');   ///
+     $input['valor_pagar']=$valor_pagar;
+     $input['fecha_pago']=null;
+     $input['valor_pagado']=0;
+    $input['estado']=0;
+    $input['mes']=$mes;
+    $input['responsable']=Auth::User()->name;
+    // $input['secuencial']='';
     $input['documento']='';
                 
             }
